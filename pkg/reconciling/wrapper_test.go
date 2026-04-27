@@ -469,6 +469,7 @@ func TestDefaultDeployment(t *testing.T) {
 	expectedObject := &appsv1.Deployment{
 		ObjectMeta: existingObject.ObjectMeta,
 		Spec: appsv1.DeploymentSpec{
+			RevisionHistoryLimit: ptr.To[int32](2),
 			Strategy: appsv1.DeploymentStrategy{
 				Type: appsv1.RollingUpdateDeploymentStrategyType,
 				RollingUpdate: &appsv1.RollingUpdateDeployment{
@@ -555,6 +556,7 @@ func TestDefaultStatefulSet(t *testing.T) {
 	expectedObject := &appsv1.StatefulSet{
 		ObjectMeta: existingObject.ObjectMeta,
 		Spec: appsv1.StatefulSetSpec{
+			RevisionHistoryLimit: ptr.To[int32](2),
 			Template: corev1.PodTemplateSpec{
 				Spec: corev1.PodSpec{
 					SecurityContext: &corev1.PodSecurityContext{
@@ -628,6 +630,7 @@ func TestDefaultDaemonSet(t *testing.T) {
 	expectedObject := &appsv1.DaemonSet{
 		ObjectMeta: existingObject.ObjectMeta,
 		Spec: appsv1.DaemonSetSpec{
+			RevisionHistoryLimit: ptr.To[int32](2),
 			Template: corev1.PodTemplateSpec{
 				Spec: corev1.PodSpec{
 					SecurityContext: &corev1.PodSecurityContext{

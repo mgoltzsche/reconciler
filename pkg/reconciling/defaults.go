@@ -106,6 +106,7 @@ func DefaultPodSpec(oldPodSpec, newPodSpec corev1.PodSpec) (corev1.PodSpec, erro
 func DefaultDeployment(reconciler DeploymentReconciler) DeploymentReconciler {
 	return func(d *appsv1.Deployment) (*appsv1.Deployment, error) {
 		old := d.DeepCopy()
+		d.Spec.RevisionHistoryLimit = ptr.To[int32](2)
 
 		d, err := reconciler(d)
 		if err != nil {
@@ -143,6 +144,7 @@ func DefaultDeployment(reconciler DeploymentReconciler) DeploymentReconciler {
 func DefaultStatefulSet(reconciler StatefulSetReconciler) StatefulSetReconciler {
 	return func(ss *appsv1.StatefulSet) (*appsv1.StatefulSet, error) {
 		old := ss.DeepCopy()
+		ss.Spec.RevisionHistoryLimit = ptr.To[int32](2)
 
 		ss, err := reconciler(ss)
 		if err != nil {
@@ -163,6 +165,7 @@ func DefaultStatefulSet(reconciler StatefulSetReconciler) StatefulSetReconciler 
 func DefaultDaemonSet(reconciler DaemonSetReconciler) DaemonSetReconciler {
 	return func(ds *appsv1.DaemonSet) (*appsv1.DaemonSet, error) {
 		old := ds.DeepCopy()
+		ds.Spec.RevisionHistoryLimit = ptr.To[int32](2)
 
 		ds, err := reconciler(ds)
 		if err != nil {
